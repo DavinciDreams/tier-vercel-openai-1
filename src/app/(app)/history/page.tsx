@@ -15,14 +15,19 @@ export const metadata: Metadata = {
 export default async function HistoryPage() {
   const user = await getCurrentUser();
 
-  const res = await db.content.findMany({
-    where: {
-      userId: user?.id,
-    },
-    orderBy: {
-      generatedAt: "desc",
-    },
-  });
+  var res;
+  if (user && user.id) {
+    res = await db.content.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        generatedAt: "desc",
+      },
+    });
+  } else {
+    console.log("User ID cannot be empty");
+  }
 
   return (
     <>
@@ -31,7 +36,7 @@ export default async function HistoryPage() {
       </div>
       {/* History of generated copies */}
       <div className="mx-auto mb-32 mt-16 flex w-full flex-col gap-6 lg:w-[624px]">
-        {res.length ? (
+        {res && res.length ? (
           res.map((copy, copyIndex) => (
             <div
               key={copyIndex}
