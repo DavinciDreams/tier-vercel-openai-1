@@ -26,7 +26,7 @@ export default async function PricingPage() {
         </p>
       </div>
 
-      {/* Pricing */}
+      { pricing }
       <div className="my-16 flex flex-col items-center">
         <div className="mx-auto flex flex-col items-start gap-6 md:flex-row">
           {pricing.map((plan, planIndex) => (
